@@ -16,6 +16,7 @@
 	public class UserFileHandler extends EventDispatcher {
 
 		public static const IMAGE :String = "*.gif;*.jpg;*.jpeg;*.png;*.JPG;*.JPEG;*.PNG;*.GIF";
+		public static const BITMAP :String = "*.bmp;*.BMP";
 		public static const TEXT :String = "*.txt;*.rtf;*.doc";
 		public static const VIDEO :String = "*.mov;*.wmv;*.mpg;*.mp4;*.avi";
 		//public static const SOUND:uint = 3;
