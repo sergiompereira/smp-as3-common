@@ -52,7 +52,7 @@
 		}
 		
 		
-		protected function initEventHandlers() 
+		protected function initEventHandlers():void
 		{
 			_fileRef.addEventListener(ProgressEvent.PROGRESS, onProgress, false, 0, true);
 			_fileRef.addEventListener(HTTPStatusEvent.HTTP_STATUS, onHTTPStatusEvent, false, 0, true);
@@ -67,7 +67,7 @@
 			
 		}
 
-		public function setFilter(tipo:String){
+		public function setFilter(tipo:String):void{
 			if(tipo == IMAGE){
 				_fileFilter = new FileFilter("Imagens",IMAGE, IMAGE);
 			}else if(tipo == TEXT){
@@ -76,11 +76,13 @@
 				_fileFilter = new FileFilter("Vídeo",VIDEO,VIDEO);
 			}else if (tipo == IMAGE_AND_VIDEO) {
 				_fileFilter = new FileFilter("Imagens e Vídeo",IMAGE_AND_VIDEO,IMAGE_AND_VIDEO);
+			}else if (tipo == BITMAP) {
+				_fileFilter = new FileFilter("Mapa de bits",BITMAP,BITMAP);
 			}
 		}
 		
 		
-		public function browse(selectCallback:Function = null, cancelCallback:Function = null) 
+		public function browse(selectCallback:Function = null, cancelCallback:Function = null):void 
 		{
 			
 			if (selectCallback != null) {
@@ -136,6 +138,15 @@
 					return VIDEO;
 				}
 			}
+			
+			var aBitmap:Array = BITMAP.split(";");
+			
+			for (var k:uint = 0; k < aBitmap.length; k++) {
+				if ((aBitmap[k] as String).substr(1).toLowerCase() == _fileRef.type.toLowerCase()) {
+					return BITMAP;
+				}
+			}
+			
 			return "";
 		}
 		/**
@@ -192,7 +203,8 @@
 			var debugstr:String = "";
 			if (params) {
 				_parametros = new URLVariables();
-				for (var chave in params) {
+				var chave:*;
+				for (chave in params) {
 					//trace(parametros[chave]);
 				
 					_parametros[chave] = params[chave];
@@ -269,7 +281,7 @@
 		 * Called when a server response was received after a successful upload
 		 * @param	evt
 		 */
-		protected function onDataUploaded(evt:DataEvent){
+		protected function onDataUploaded(evt:DataEvent):void{
 	
 			_serverRawData = evt.data;
 			dispatchEvent(evt);
@@ -409,10 +421,10 @@
 			}
         }
 		
-		protected function onIllegalOperationError(msg:String) { trace("UserFileHandler->onIllegalOperationError: "+msg) }
-		protected function onSecurityError(msg:String) {trace("UserFileHandler->onSecurityError: "+msg) }
-		protected function onMemoryError(msg:String) {trace("UserFileHandler->onMemoryError: "+msg) }
-		protected function onGenericError(msg:String){trace("UserFileHandler->onGenericError: "+msg)}
+		protected function onIllegalOperationError(msg:String):void { trace("UserFileHandler->onIllegalOperationError: "+msg) }
+		protected function onSecurityError(msg:String):void {trace("UserFileHandler->onSecurityError: "+msg) }
+		protected function onMemoryError(msg:String):void {trace("UserFileHandler->onMemoryError: "+msg) }
+		protected function onGenericError(msg:String):void{trace("UserFileHandler->onGenericError: "+msg)}
 			
 	}
 }
