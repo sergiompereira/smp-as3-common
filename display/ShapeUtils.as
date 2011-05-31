@@ -57,9 +57,10 @@
 				gradientDirection = Math.PI/2;
 			}
 			
+			var matrix:Matrix;
 			with (shape.graphics) {
 				lineStyle(borderThik, borderColor);
-				var matrix:Matrix = new Matrix();
+				matrix  = new Matrix();
 				matrix.createGradientBox(width, height, gradientDirection,0,0);
 				beginGradientFill(GradientType.LINEAR, colors, alphaRatio, gradientRatio, matrix);
 				drawRect(0,0,width, height);
@@ -98,7 +99,7 @@
 		}
 		public static function quickTri(bg:int,len:Number):Shape{
 			
-			var p= Math.sqrt((Math.pow(len,2))-Math.pow(len/2,2));
+			var p:Number= Math.sqrt((Math.pow(len,2))-Math.pow(len/2,2));
 			var t:Shape = new Shape();
 			t.graphics.beginFill(bg);
 			//t.graphics.lineTo(0,0);
@@ -254,18 +255,21 @@
 			
 			var f:Shape = new Shape();
 			f.alpha = transparency;
+			
+			var vectorP:Number;
+			var destP:Number;
 			with (f.graphics) {
 				
 				lineStyle();
 				beginFill(color);
 				
 				//lógica : encontrar vector points a cada PI/4 (e não a cada PI/2)
-				var vectorP=radius*(Math.SQRT2-1);
+				vectorP = radius*(Math.SQRT2-1);
 				//idem: var vectorP = Math.sin(Math.PI/8)*Math.cos(Math.PI/8)*raio;
 				//a outra componente (x ou y alternado) é igual ao raio
     			
 				//var destP=raio*Math.SQRT2/2;
-				var destP = radius*Math.cos(Math.PI/factor);
+				destP = radius*Math.cos(Math.PI/factor);
 				//destPx = destPy;
 				
 			
