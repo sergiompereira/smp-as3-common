@@ -322,7 +322,7 @@
 			return original;
 		}
 		
-		public static function generateRandom (length:uint):String
+		public static function generateRandomKey (length:uint):String
 		{
 
 		  // start with a blank password
@@ -390,6 +390,30 @@
 			} else {
 				return filename.substr( extensionIndex + 1, filename.length );
 			}
+		}
+		
+		
+		public static function serializeObject(obj:Object):String {
+				
+			var str:String;
+			
+			if (obj is Number  || obj is String ) {
+				str = '\'' + obj.toString() + '\'';
+			}else if (obj is Array) {
+				
+				str = '[';
+				var i:int;
+				var len:Number = (obj as Array).length;
+				for (i = 0; i < len-1; i++) { str += StringUtils.serializeObject(obj[i]) + ','; }
+				str += StringUtils.serializeObject(obj[i]) + ']';
+		   }else {
+				str = '{';
+				var key:Object;
+				for (key in obj) { str += key + ':' + StringUtils.serializeObject(obj[key]) + ','; }
+				str = str.replace(/\,$/, '') + '}';
+		   }
+			   
+			return str;
 		}
 	}
 	
