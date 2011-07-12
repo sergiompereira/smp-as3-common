@@ -22,7 +22,7 @@
 			var traceMsg:String = StringUtils.serializeObject(obj);
 			
 			try{
-				navigateToURL(new URLRequest("javascript:alert('" + traceMsg +"'); void(0);"), "_self");
+				navigateToURL(new URLRequest("javascript:alert(" + traceMsg +"); void(0);"), "_self");
 			}catch (err:Error) {
 				navigateToURL(new URLRequest("javascript:alert('" + err.message +"'); void(0);"), "_self");
 			}
