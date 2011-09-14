@@ -112,7 +112,7 @@ package com.smp.common.math {
       // make sure. If it is not unique, then generate a random value and concatenate
       // it with the previous one.
       while(!isUnique(nID)) {
-        nID += NumberUtilities.random(dCurrent.getTime(), 2 * dCurrent.getTime());
+        nID += NumberUtils.random(dCurrent.getTime(), 2 * dCurrent.getTime());
       }
       
       _aUniqueIDs.push(nID);
