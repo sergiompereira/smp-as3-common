@@ -77,10 +77,17 @@ package com.smp.common.utils
 		public static function repeat(action:Function, repeatCount:uint, repeatInterval:Number,  args:*=null):Timer {
 			
 			var counter:uint = 0;
-		
-			var _timer:Timer = new Timer(repeatInterval);
-			_timer.addEventListener(TimerEvent.TIMER, onTimeComplete);
-			_timer.start();
+			var _timer:Timer 
+			if (repeatInterval > 0) {
+				_timer = new Timer(repeatInterval);
+				_timer.addEventListener(TimerEvent.TIMER, onTimeComplete);
+				_timer.start();
+			}else {
+				for(counter = 0; counter < repeatCount; counter++){
+					action(counter, args);
+				}
+			}
+			
 			
 			function onTimeComplete(evt:TimerEvent) {
 				
@@ -90,11 +97,14 @@ package com.smp.common.utils
 					_timer.stop();
 				}
 				
-				action(args);
+				action(counter, args);
 			}
 			
-			return _timer;
+			if (_timer) {
+				return _timer;
+			}
 			
+			return null;
 			
 		}
 		

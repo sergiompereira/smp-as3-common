@@ -40,7 +40,7 @@
 			return randomized;
 		}
 		
-		public function clone(list:Array):Array {
+		public static function clone(list:Array):Array {
 			var i:uint;
 			var clone:Array;
 			for (i = 0; i < list.length; i++) {
@@ -48,6 +48,26 @@
 			}
 			
 			return clone;
+		}
+		
+		public static function iterate(obj:Object, fnc:Function, context:Object):void {
+			if(obj === null || obj === undefined) return;
+			if(typeof obj == "object"){
+				if(obj.length !== null && obj.length !== undefined){
+					var length = obj.length;
+					var i:int = 0;
+					while(i<length){
+						fnc.call(context, i, obj[i], obj);
+						i++;
+					}
+				}else{
+					var key:String;
+					for(key in obj){
+						fnc.call(context, key, obj[key], obj);
+						
+					}
+				}
+			}
 		}
 	}
 	
