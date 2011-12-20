@@ -1,8 +1,9 @@
 ﻿package com.smp.common.utils
 {
-	
-	import ascb.util.NumberUtilities;
+
 	import flash.xml.*;
+	
+	import com.smp.common.math.NumberUtils;
 	
 	/**
 	 * @see ascb.util.StringUtilities
@@ -370,7 +371,7 @@
 		  while (i < length) { 
 
 			// pick a random character from the possible ones
-			char = possible.substr(NumberUtilities.random(0, possible.length-1), 1);
+			char = possible.substr(NumberUtils.random(0, possible.length-1), 1);
 				
 			// we don't want this character if it's already in the password
 			if (password.indexOf(char)<0) { 

@@ -4,14 +4,16 @@
 	import flash.display.BitmapData;
 	import flash.events.*;
 	import flash.utils.ByteArray;
-
+	
+	import com.gskinner.motion.GTween;
+	import com.gskinner.motion.easing.*;
+	
 	import com.smp.common.bitmap.BitmapResampler;
 	import com.smp.common.display.DisplayObjectUtilities;
-	import com.smp.effects.TweenSafe;
 	import com.smp.common.utils.StringUtils;
 
 
-	public class LoadBitmap extends LoadDisplayObject {
+	public class BitmapLoader extends DisplayObjectLoader {
 
 		public static const PARSE_ERROR:String = "PARSE_ERROR";
 
@@ -24,9 +26,9 @@
 		protected var _fadein:Number;
 		protected var _center:Boolean;
 		
-		protected var _tween:TweenSafe = new TweenSafe();
+		protected var _tween:GTween;
 		
-		public function LoadBitmap(smooth:Boolean = false, verbose:Boolean = false, recursive:Boolean = false, scale:Number = 1, fadein:Number = 0, checkPolicy:Boolean = false, center:Boolean = false) {
+		public function BitmapLoader(smooth:Boolean = false, verbose:Boolean = false, recursive:Boolean = false, scale:Number = 1, fadein:Number = 0, checkPolicy:Boolean = false, center:Boolean = false) {
 			_smooth = smooth;
 			_scale = scale;
 			_fadein = fadein;
@@ -41,12 +43,12 @@
 		 * @param	url			: the file to load
 		 * @param	callback	: expect this object as argument
 		 */
-		override public function Load(url:String, callback:Function = null):void {
+		override public function load(url:String, callback:Function = null):void {
 			if (_image != null && this.contains(_image)) {
 				removeChild(_image);
 			}
 			_fileType = StringUtils.extractExtension(url);
-			super.Load(url, callback);
+			super.load(url, callback);
 		}
 		
 		
@@ -70,7 +72,7 @@
 				_image = Bitmap(_loader.content);
 			}catch (err:*) {
 				trace("LoadBitmap->addDisplayObject: "+err.message);
-				dispatchEvent(new Event(LoadBitmap.PARSE_ERROR));
+				dispatchEvent(new Event(BitmapLoader.PARSE_ERROR));
 				return;
 			}
 			
@@ -97,8 +99,13 @@
 				this.centerImage();
 			}
 			
-			if (_fadein>0) {
-				_tween.setTween(this, "alpha", TweenSafe.REG_EASEIN, 0, 1, _fadein);
+			if (_fadein > 0) {
+				if (_tween != null) _tween = new GTween(this);
+				this.alpha = 0;
+				_tween.setValue("alpha", 1);
+				_tween.duration = _fadein;
+				_tween.ease = Sine.easeIn;
+				//_tween.setTween(this, "alpha", TweenSafe.REG_EASEIN, 0, 1, _fadein);
 			}
 			
 			dispatchEvent(new Event(Event.COMPLETE));

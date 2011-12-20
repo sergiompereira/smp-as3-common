@@ -6,7 +6,7 @@
 	import flash.system.LoaderContext;
 	import flash.system.SecurityDomain;
 
-	public class LoadDisplayObject extends Sprite {
+	public class DisplayObjectLoader extends Sprite {
 
 		protected var _loader:Loader = new Loader();
 		protected var _context:LoaderContext;
@@ -27,7 +27,7 @@
 		
 		
 
-		public function LoadDisplayObject(url:String = "", verbose:Boolean = false, recursive:Boolean = false, checkPolicy:Boolean = false,callback:Function = null) {
+		public function DisplayObjectLoader(url:String = "", verbose:Boolean = false, recursive:Boolean = false, checkPolicy:Boolean = false,callback:Function = null) {
 
 			addChild(_loader);
 			
@@ -73,7 +73,7 @@
 		 * @param	url			: the file to load
 		 * @param	callback	: expect this object as argument
 		 */
-		public function Load(url:String, callback:Function = null):void {
+		public function load(url:String, callback:Function = null):void {
 			
 			_onCompleteCallback = callback;
 			
