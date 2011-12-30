@@ -121,10 +121,10 @@
 		public function get progressString():String {
 			return _loadProgress;
 		}
-		public function get loadPercent():int {
+		public function get loadedPercent():int {
 			return _loadPercent;
 		}
-		public function get Loaded():Boolean {
+		public function get loaded():Boolean {
 			return _loaded;
 		}
 		public function get progressBytesArray():Array {
