@@ -32,14 +32,14 @@
 		 * @param	alphaRatio : the transparencies for each color in the color Array (must match the same number of elements)
 		 * @param	gradientRatio : the position within the gradient box (from 0 to 255) where each color (set in the color Array) is at its most pure state.
 		 * 			(must match the same number of elements of the color Array)
-		 * @param	gradientDirection: defaults to vertical (Math.PI/2). For an horizontal option, set to 0. Diagonals: multiples of Math.PI/4
+		 * @param	gradientDirection: defaults to horizontal (angle 0). For a vertical option, set to Math.PI/2. Diagonals: multiples of Math.PI/4
 		 * @param	posx
 		 * @param	posy
 		 * @param	borderThik
 		 * @param	borderColor
 		 * @return
 		 */
-		public static function createGradientRectangle(width:Number, height:Number, colors:Array = null, alphaRatio:Array = null, gradientRatio:Array = null, gradientDirection:Number = -1, posx:Number = 0, posy:Number = 0, borderThik:Number = undefined, borderColor:Number = undefined):Shape {
+		public static function createGradientRectangle(width:Number, height:Number, colors:Array = null, alphaRatio:Array = null, gradientRatio:Array = null, gradientDirection:Number = 0, posx:Number = 0, posy:Number = 0, borderThik:Number = undefined, borderColor:Number = undefined):Shape {
 			var shape:Shape = new Shape();
 			
 			if (colors == null) {
@@ -51,10 +51,6 @@
 			}
 			if (gradientRatio == null) {
 				gradientRatio = [0, 255];
-			}
-			
-			if (gradientDirection == -1) {
-				gradientDirection = Math.PI/2;
 			}
 			
 			var matrix:Matrix;

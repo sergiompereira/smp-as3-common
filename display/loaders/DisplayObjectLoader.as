@@ -112,7 +112,7 @@
 			_loadPercent = Math.round((evt.bytesLoaded/evt.bytesTotal)*100);
 			_bytesLoaded = evt.bytesLoaded;
 			_bytesTotal = evt.bytesTotal;
-			_loadProgress = (loadPercent + " : " + _bytesLoaded + " -> " + _bytesTotal);
+			_loadProgress = (_loadPercent + " : " + _bytesLoaded + " -> " + _bytesTotal);
 			
 			dispatchEvent(evt);
 			

@@ -100,7 +100,7 @@
 			}
 			
 			if (_fadein > 0) {
-				if (_tween != null) _tween = new GTween(this);
+				if (_tween == null) _tween = new GTween(this);
 				this.alpha = 0;
 				_tween.setValue("alpha", 1);
 				_tween.duration = _fadein;
