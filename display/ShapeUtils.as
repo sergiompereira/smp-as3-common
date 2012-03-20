@@ -84,6 +84,33 @@
 			return shape;
 		}
 		
+		public static function createGradientCircle(radius:Number, colors:Array = null, alphaRatio:Array = null, gradientRatio:Array = null, gradientDirection:Number = 0, posx:Number = 0, posy:Number = 0, borderThik:Number = undefined, borderColor:Number = undefined):Shape {
+			
+			var shape:Shape = new Shape();
+			
+			if (colors == null) {
+				colors = [0xffffff, 0xffffff];
+			}
+			
+			if (alphaRatio == null) {
+				alphaRatio = [1, 0];
+			}
+			if (gradientRatio == null) {
+				gradientRatio = [0, 255];
+			}
+			
+			var matrix:Matrix;
+			with (shape.graphics) {
+				lineStyle(borderThik, borderColor);
+				matrix  = new Matrix();
+				matrix.createGradientBox(radius, radius, gradientDirection,0,0);
+				beginGradientFill(GradientType.RADIAL, colors, alphaRatio, gradientRatio, matrix);
+				drawCircle(posx,posy, radius);
+				endFill();
+			}
+			
+			return shape;
+		}
 		
 		public static function quickRect(bg:uint,w:Number,h:Number):Shape{
 			var r:Shape = new Shape();

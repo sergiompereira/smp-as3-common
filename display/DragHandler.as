@@ -60,6 +60,21 @@ package com.smp.common.display{
 			}
 		}
 		
+		public function getBounds(target:InteractiveObject):Rectangle {
+			var dragObj:DragData = getObjectByTarget(target);
+			if (dragObj != null) {
+				return dragObj.bounds;
+			}
+			return null;
+		}
+		
+		public function setBounds(target:InteractiveObject, rect:Rectangle):void {
+			var dragObj:DragData = getObjectByTarget(target);
+			if (dragObj != null) {
+				dragObj.bounds = rect;
+			}
+		}
+		
 		public function pause(target:InteractiveObject):void 
 		{
 			var dragObj:DragData = getObjectByTarget(target);
