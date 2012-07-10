@@ -36,6 +36,20 @@
 			
 		}
 		
+		public static  function normalizeHex(hexvalue:String):String {
+			var len = hexvalue.length;
+			var value = hexvalue;
+			var diff,j;
+			var length = 6;
+			if(len < length){
+				diff = length - len;
+				for(j=0; j < diff; j++){
+					value = '0'+value;
+				}
+			}
+			return  value; 
+		}
+		
 		/**
 		 * @author			: http://www.pixelwit.com/blog/2008/05/color-fading-array/
 		 * 
@@ -90,6 +104,63 @@
 			// Return the new array of colors.
 			return newArry;
 		}
+		
+		
+		/**
+		 * Returns an array with the colors of the spectrum
+		 * @param	total	: the amount of colors to include (the size in pixels of the rectangle or the degree span of the wedge will do)
+		 * @return Array
+		 */
+		public static function getSpectrum(total) 
+		{
+			
+			var i,nRadians,nR,nG,nB,nColor,spectrumColors = [];
+			var resolution = 360/total;
+			
+			for (i = 0; i <= 360; i+=resolution)
+			{
+
+				/*
+				 * A little maths (bitwise operation):
+				 * 00010111 LEFT-SHIFT =  00101110
+				 * 00010111 RIGHT-SHIFT =  00001011
+				 * 
+				 * A left arithmetic shift by n is equivalent to multiplying by Math.pow(2,n), 
+				 * while a right arithmetic shift by n is equivalent to dividing by Math.pow(2,n).
+				 * 
+				 * In C-inspired languages, the left and right shift operators are "<<" and ">>", respectively. 
+				 * The number of places to shift is given as the second argument to the shift operators.
+				 * x = y << 2;
+				 */
+				
+				nRadians = i * (Math.PI / 180);
+				nR = Math.cos(nRadians)                   * 127 + 128 << 16;
+				nG = Math.cos(nRadians + 2 * Math.PI / 3) * 127 + 128 << 8;
+				nB = Math.cos(nRadians + 4 * Math.PI / 3) * 127 + 128;
+				   
+				
+				/*
+				 * Some more maths (bitwise operation continued):
+				 * The | (vertical bar) operator performs a bitwise OR on two integers. 
+				 * Each bit in the result is 1 if either of the corresponding bits in the two input operands is 1. 
+				 * For example, 0x56 | 0x32 is 0x76, because:
+
+					  0 1 0 1 0 1 1 0
+					| 0 0 1 1 0 0 1 0
+					  ---------------
+					  0 1 1 1 0 1 1 0
+
+				 */
+
+				 
+				nColor  = nR | nG | nB;
+				
+				spectrumColors.push(nColor);
+			}
+			
+			return spectrumColors;	
+		}
+
 		
 	}
 	
