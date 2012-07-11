@@ -61,6 +61,19 @@ package com.smp.common.math
 			return directionAngle;	
 		}
 		
+		public static function rotatePoint(axis:Point, point:Point, angle:Number):Point {
+			var delta:Point = new Point(point.x - axis.x, point.y - axis.y);
+			var rpoint:Point = new Point();
+			var cos:Number = Math.cos(angle);
+			var sin:Number = Math.sin(angle);
+			
+			rpoint.x = delta.x * cos - delta.y * sin;
+			rpoint.y = delta.x * sin + delta.y * cos;
+			rpoint.x += axis.x;
+			rpoint.y += axis.y;
+			
+			return rpoint;
+		}
 		
 		/**
 		 * If input size is minor than bounding size, it returns the input size, no change.

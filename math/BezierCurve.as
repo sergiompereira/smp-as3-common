@@ -98,10 +98,10 @@ package com.smp.common.math
 			var corner4:Point = new Point(point.x, point.y + side);
 			
 			if (rotation > 0) {
-				corner1 = getRotatedPoint(point,corner1, rotation);
-				corner2 = getRotatedPoint(point,corner2, rotation);
-				corner3 = getRotatedPoint(point,corner3, rotation);
-				corner4 = getRotatedPoint(point,corner4, rotation);
+				corner1 = Geometry2D.rotatePoint(point,corner1, rotation);
+				corner2 = Geometry2D.rotatePoint(point,corner2, rotation);
+				corner3 = Geometry2D.rotatePoint(point,corner3, rotation);
+				corner4 = Geometry2D.rotatePoint(point,corner4, rotation);
 			}
 			graphics.moveTo(corner1.x, corner1.y);
 			graphics.lineTo(corner2.x, corner2.y);
@@ -110,19 +110,7 @@ package com.smp.common.math
 			graphics.lineTo(corner1.x, corner1.y);
 
 		}
-		protected function getRotatedPoint(origin:Point, point:Point, angle:Number):Point {
-			var delta:Point = new Point(point.x - origin.x, point.y - origin.y);
-			var rpoint:Point = new Point();
-			var cos:Number = Math.cos(angle);
-			var sin:Number = Math.sin(angle);
-			
-			rpoint.x = delta.x * cos - delta.y * sin;
-			rpoint.y = delta.x * sin + delta.y * cos;
-			rpoint.x += origin.x;
-			rpoint.y += origin.y;
-			
-			return rpoint;
-		}
+		
 		
 	}
 	

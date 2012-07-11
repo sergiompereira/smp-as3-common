@@ -10,6 +10,10 @@
 		protected var _collection:Array = new Array();
 		protected var _data:Object = new Object();
 		
+		public function MovieClipId() {
+			super();
+		}
+		
 		public function set id(Id:Number):void{
 			_id = Id;
 		}
