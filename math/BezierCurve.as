@@ -92,22 +92,17 @@ package com.smp.common.math
 		
 		protected function drawRect(point:Point, rotation:Number):void {
 			var side:Number = options.thickness / 2;
-			var corner1:Point = new Point(point.x + 1, point.y + side);
-			var corner2:Point = new Point(point.x + 1, point.y - side);
-			var corner3:Point = new Point(point.x, point.y - side);
-			var corner4:Point = new Point(point.x, point.y + side);
+			var point1:Point = new Point(point.x + 1, point.y + side);
+			var point2:Point = new Point(point.x + 1, point.y - side);
 			
 			if (rotation > 0) {
-				corner1 = Geometry2D.rotatePoint(point,corner1, rotation);
-				corner2 = Geometry2D.rotatePoint(point,corner2, rotation);
-				corner3 = Geometry2D.rotatePoint(point,corner3, rotation);
-				corner4 = Geometry2D.rotatePoint(point,corner4, rotation);
+				point1 = Geometry2D.rotatePoint(point,point1, rotation);
+				point2 = Geometry2D.rotatePoint(point,point2, rotation);
+				
 			}
-			graphics.moveTo(corner1.x, corner1.y);
-			graphics.lineTo(corner2.x, corner2.y);
-			graphics.lineTo(corner3.x, corner3.y);
-			graphics.lineTo(corner4.x, corner4.y);
-			graphics.lineTo(corner1.x, corner1.y);
+			graphics.moveTo(point1.x, point1.y);
+			graphics.lineTo(point2.x, point2.y);
+			
 
 		}
 		
