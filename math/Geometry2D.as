@@ -52,7 +52,7 @@ package com.smp.common.math
 		{
 			var directionAngle:Number = Math.atan2(endPoint.y - startPoint.y, endPoint.x - startPoint.x);
 			if (directionAngle < 0) {
-				directionAngle = Math.PI + directionAngle;
+				directionAngle = 2*Math.PI + directionAngle;
 			}
 			if (outputType == DEGREE) {
 				return directionAngle*180/Math.PI;
