@@ -1,5 +1,7 @@
 package com.smp.common.display
 {
+	import com.smp.common.utils.JSUtils;
+	import flash.external.ExternalInterface;
 	import flash.geom.Point;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
@@ -24,7 +26,8 @@ package com.smp.common.display
 		
 		private var _mousePos:Point;
 		private var _paused:Boolean;
-		
+		private var _mousePressed:Boolean = false;
+		private var _offstage:Boolean = false;
 	
 		
 		internal function start() {
@@ -56,7 +59,12 @@ package com.smp.common.display
 					target.stage.addEventListener(MouseEvent.MOUSE_MOVE, onMove);
 				}
 				target.stage.addEventListener(MouseEvent.MOUSE_UP, onUp);
-			
+				target.stage.addEventListener(MouseEvent.MOUSE_OUT, stageOut);
+				target.stage.addEventListener(MouseEvent.MOUSE_OVER, stageOver);
+				target.stage.addEventListener(Event.MOUSE_LEAVE, stageLeave);
+				
+				_mousePressed = true;
+
 
 		}
 			
@@ -67,27 +75,51 @@ package com.smp.common.display
 				}
 
 		}
+		
+		private function stageOut(event:MouseEvent):void {
+			_offstage = true;
+			if (event.stageX <= 0 || event.stageX >= target.stage.stageWidth || event.stageY <= 0 || event.stageY >= target.stage.stageHeight)
+			{
+				handleMouseUp();
+			}
 			
+		}
+		private function stageOver(event:MouseEvent):void {
+			_offstage = false;
+		}
+		
+		private function stageLeave(event:Event):void {
+			 handleMouseUp();
+		}
 			
 		private function onUp(evt:MouseEvent):void 
 		{
-				
-				if((target as Sprite)!=null){
-					stopDrag((target as Sprite));
-				}else {
-					target.stage.removeEventListener(Event.ENTER_FRAME, onStageUpdate);
-				}
-				
-				
-				if(onUpFcn != null){
-					onUpFcn(target);
-				}
-				
-				target.stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMove);
-				target.stage.removeEventListener(MouseEvent.MOUSE_UP, onUp);
-			
+			handleMouseUp();
 		}
+		
 			
+		private function handleMouseUp():void {
+			
+			if((target as Sprite)!=null){
+				stopDrag((target as Sprite));
+			}else {
+				target.stage.removeEventListener(Event.ENTER_FRAME, onStageUpdate);
+			}
+			
+			
+			if(onUpFcn != null){
+				onUpFcn(target);
+			}
+			
+			target.stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMove);
+			target.stage.removeEventListener(MouseEvent.MOUSE_UP, onUp);
+			target.stage.removeEventListener(MouseEvent.MOUSE_OUT, stageOut);
+			target.stage.removeEventListener(MouseEvent.MOUSE_OVER, stageOver);
+			target.stage.removeEventListener(Event.MOUSE_LEAVE, stageLeave);
+			
+			_mousePressed = false;
+		}
+		
 		private function startDrag(target:Sprite):void 
 		{
 			
