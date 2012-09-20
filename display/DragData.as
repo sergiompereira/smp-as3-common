@@ -52,7 +52,7 @@ package com.smp.common.display
 				}
 				
 				if(onDownFcn != null){
-					onDownFcn(target);
+					onDownFcn(target, evt);
 				}
 				
 				if(onDragFcn != null){
@@ -71,7 +71,7 @@ package com.smp.common.display
 		private function onMove(evt:MouseEvent):void {
 			
 				if(onDragFcn != null){
-					onDragFcn(target);
+					onDragFcn(target, evt);
 				}
 
 		}
@@ -80,7 +80,7 @@ package com.smp.common.display
 			_offstage = true;
 			if (event.stageX <= 0 || event.stageX >= target.stage.stageWidth || event.stageY <= 0 || event.stageY >= target.stage.stageHeight)
 			{
-				handleMouseUp();
+				handleMouseUp(event);
 			}
 			
 		}
@@ -89,16 +89,16 @@ package com.smp.common.display
 		}
 		
 		private function stageLeave(event:Event):void {
-			 handleMouseUp();
+			 handleMouseUp(event);
 		}
 			
 		private function onUp(evt:MouseEvent):void 
 		{
-			handleMouseUp();
+			handleMouseUp(evt);
 		}
 		
 			
-		private function handleMouseUp():void {
+		private function handleMouseUp(event:Event = null ):void {
 			
 			if((target as Sprite)!=null){
 				stopDrag((target as Sprite));
@@ -108,7 +108,7 @@ package com.smp.common.display
 			
 			
 			if(onUpFcn != null){
-				onUpFcn(target);
+				onUpFcn(target, event);
 			}
 			
 			target.stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMove);
